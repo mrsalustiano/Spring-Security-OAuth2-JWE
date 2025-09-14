@@ -1,0 +1,32 @@
+server:
+  port: 0  # Random port for tests
+
+spring:
+  application:
+    name: oauth2-client-app-test
+
+# OAuth2 Server Configuration for Tests
+oauth2:
+  server:
+    base-url: http://localhost:8080
+    token-endpoint: /auth/oauth/v2/token-jew
+    validate-endpoint: /auth/oauth/v2/validate
+    protected-api-base: /api/v1/protected
+  client:
+    client-id: test-client
+    client-secret: test-secret
+    username: testuser
+    password: testpass
+    scopes: read,write
+
+# RestTemplate Configuration
+rest-template:
+  connection-timeout: 1000
+  read-timeout: 2000
+
+logging:
+  level:
+    com.example.client: DEBUG
+    org.springframework.web.client: WARN
+    org.apache.http: WARN
+    com.github.tomakehurst.wiremock: WARN

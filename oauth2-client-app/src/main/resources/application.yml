@@ -1,0 +1,44 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: oauth2-client-app
+
+management:
+  server:
+    port: 9002
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+# OAuth2 Server Configuration
+oauth2:
+  server:
+    base-url: http://localhost:8080
+    token-endpoint: /auth/oauth/v2/token-jew
+    validate-endpoint: /auth/oauth/v2/validate
+    protected-api-base: /api/v1/protected
+  client:
+    client-id: oauth2-client
+    client-secret: secret123
+    username: admin
+    password: admin123
+    scopes: read,write
+
+# RestTemplate Configuration
+rest-template:
+  connection-timeout: 5000
+  read-timeout: 10000
+
+logging:
+  level:
+    com.example.client: DEBUG
+    org.springframework.web.client: DEBUG
+    org.apache.http: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%X{traceId}] %logger{36} - %msg%n"

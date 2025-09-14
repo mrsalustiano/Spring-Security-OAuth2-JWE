@@ -1,0 +1,49 @@
+server:
+  port: 0  # Random port for tests
+
+spring:
+  application:
+    name: oauth2-server-test
+
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 1
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
+
+  flyway:
+    enabled: false  # Disable for tests, use JPA DDL
+
+# JWE Configuration for tests
+jwe:
+  encryption:
+    key: "test-encryption-key-32-characters"
+  signing:
+    key: "test-signing-key-must-be-32-chars"
+
+# Rate limiting for tests
+rate-limit:
+  requests-per-second: 100  # Higher limit for tests
+  bucket-capacity: 200
+
+logging:
+  level:
+    com.example.oauth2server: DEBUG
+    org.springframework.security: WARN
+    org.springframework.web: WARN
+    org.hibernate: WARN
